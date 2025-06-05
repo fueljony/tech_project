@@ -13,9 +13,6 @@ const tableHeaders = [
 
 <template>
   <div>
-    <p class="red--text">
-      hello
-    </p>
     {{ surveys }}
     <v-data-table :headers="tableHeaders" :items="surveys"></v-data-table>
   </div>
