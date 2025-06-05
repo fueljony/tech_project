@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Controllers\SurveysController@index');
 
+Route::get('/students', function () {
+    return view('students');
+});
+
 Route::resource('surveys', SurveysController::class);
 
 Route::post('/survey/{survey}/add_question', [SurveyQuestionController::class, 'addQuestion'])->name('survey.add_question');
