@@ -36,7 +36,7 @@ class SurveysController extends Controller
         $survey = Survey::find($id);
 
         # here is where you need to add questions to the survey
-        return view('surveys.respondent', compact('survey'));
+        return view('surveys.edit', compact('survey'));
     }
 
     /**
