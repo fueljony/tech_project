@@ -1,10 +1,9 @@
 @extends('app')
 @section('header-scripts')
-    {{-- @vite(['resources/js/admin/externship_nv/student.js']) --}}
+    @vite(['resources/js/app.js'])
 @stop
 @section('content')
     <div id="app">
-        {{-- <app /> --}}
+        <app />
     </div>
-
 @stop
