@@ -8,7 +8,7 @@ const pinia = createPinia();
 
 import { app, router } from "./app-factory";
 
-import "./../sass/app.scss";
+import "../sass/app/style.scss";
 
 new Vue({
     components: { app },

@@ -12,7 +12,7 @@ const tableHeaders = [
 </script>
 
 <template>
-  <div>
+  <div >
     {{ surveys }}
     <v-data-table :headers="tableHeaders" :items="surveys"></v-data-table>
   </div>

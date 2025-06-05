@@ -3,6 +3,7 @@
 </script>
 
 <template>
+  <v-app>
   <v-row>
     <v-col>
       <v-container>
@@ -11,6 +12,7 @@
       </v-container>
     </v-col>
   </v-row>
+</v-app>
 </template>
 
 <style></style>
