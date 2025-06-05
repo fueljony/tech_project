@@ -33,6 +33,4 @@ const tableHeaders = [
   </div>
 </template>
 
-
-
 <style></style>
