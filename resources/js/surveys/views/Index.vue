@@ -14,7 +14,7 @@ const tableHeaders = [
 <template>
   <div>
     <p class="red--text">
-Allo
+      hello
     </p>
     {{ surveys }}
     <v-data-table :headers="tableHeaders" :items="surveys"></v-data-table>
