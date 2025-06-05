@@ -2,6 +2,9 @@ import "./bootstrap";
 
 import Vue from "vue";
 import vuetify from "@js/plugins/vuetify";
+import { createPinia, PiniaVuePlugin } from "pinia";
+Vue.use(PiniaVuePlugin);
+const pinia = createPinia();
 
 import { app, router } from "./app-factory";
 
@@ -12,4 +15,5 @@ new Vue({
     el: "#app",
     router,
     vuetify,
+    pinia,
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Survey;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SurveysController extends Controller
@@ -12,9 +13,14 @@ class SurveysController extends Controller
      */
     public function index()
     {
-        $surveys = Survey::orderBy("name","ASC")->get();
-
-        return view('surveys.index', compact('surveys'));
+        if (!request()->expectsJson()) {
+            return view('surveys.index');
+        }
+        $surveys = Survey::orderBy("name", "ASC")->get();
+        $data = [
+            'surveys' => $surveys,
+        ];
+        return new JsonResponse($data);
     }
 
     /**

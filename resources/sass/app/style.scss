@@ -1,0 +1,569 @@
+// Fonts
+@import url('https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css');
+@import url('https://use.fontawesome.com/releases/v5.15.4/css/all.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+// Vuetify
+
+
+// @import 'vuetify/src/styles/settings/_variables.scss';
+// @import 'vuetify/src/styles/tools/_functions.sass';
+// @import 'vuetify/src/components/VBtn/_variables.scss';
+
+$body-font-family: 'Poppins', sans-serif;
+// $btn-font-weight: 900 !default;
+// @import 'vuetify/src/styles/settings/_variables.scss';
+// $body-font-family: 'Inter', sans-serif;
+// $heading-font-family: $body-font-family;
+// $font-size-root: 16px;
+
+// @import 'vuetify/src/styles/settings/_colors.scss';
+// @import 'vuetify/src/styles/settings/_dark.scss';
+// @import 'vuetify/src/styles/settings/_light.scss';
+
+
+
+
+
+// $font-size-root: 18px !important;
+// $btn-border-radius: 0px;
+// $material-light: map-deep-merge((
+//   'text-fields': (
+//     'outlined-hover': rgba(229,0,0),
+//   ),
+// ), $material-light);
+
+// $material-dark: map-deep-merge((
+//   'text-fields': (
+//     'outlined-hover': rgba(229,0,0),
+//   )
+// ), $material-dark);
+
+// $material-dark: (
+//   'text-fields': (
+//     'outlined-hover': rgba(229,0,0),
+//   ),
+// );
+
+// $headings: map-deep-merge((
+//   'text-fields': (
+//     'outlined-hover': rgba(229,0,0),
+//   )
+// ), $material-dark)
+
+// $typoOptions: text-h1, text-sm-h1, text-md-h1, text-lg-h1, text-h2, text-sm-h2,
+//   text-md-h2, text-lg-h2, text-h3, text-sm-h3, text-md-h3, text-lg-h3, text-h4,
+//   text-sm-h4, text-md-h4, text-lg-h4, text-h5, text-sm-h5, text-md-h5,
+//   text-lg-h5, text-h6, text-sm-h6, text-md-h6, text-lg-h6, headline, title, text-subtitle-1, text-subtitle-2,
+//   subtitle-1, subtitle-2, text-body-1, text-sm-body-1, text-md-body-1,
+//   text-lg-body-1, text-body-2, text-sm-body-2, text-md-body-2, text-lg-body-2,
+//   text-caption;
+// #app {
+//   font-family: $body-font-family !important;
+//   @each $typoOption in $typoOptions {
+//     .#{$typoOption} {
+//       font-family: $body-font-family !important;
+//     }
+//   }
+// }
+
+@import 'vuetify/src/styles/main.sass';
+
+
+// Vuetify
+// @import 'vuetify/src/styles/styles.sass';
+
+// * Typography
+// 1. Content
+// .v-application {
+//   font-family: "Poppins", sans-serif;
+//   line-height: 1;
+// }
+/*
+.theme--dark.v-application {
+  background: url("@img/background-01.png") no-repeat !important ;
+  background-size: cover !important;
+  -webkit-background-size: cover !important;
+
+}*/
+
+// .theme--light.v-application {
+//   background: #fff4e7;
+// }
+
+// .v-application .text-h2,
+// .v-application .text-h2,
+// .v-application .text-h4,
+// .v-application .text-body-2,
+// .v-application .subtitle-1,
+// .v-application .text-subtitle-2,
+// .v-application .text-h5,
+// .v-application .text-h4,
+// .v-application .text-h6,
+// .v-application .text-body-1,
+// .v-application .headline {
+//   font-family: "Poppins" !important;
+// }
+
+// .v-application .text-caption,
+// .v-application .text-overline {
+//   font-family: "Poppins" !important;
+// }
+
+// .theme--dark.v-application {
+
+//   background: url("/images/background-01.png") no-repeat !important;
+  
+
+// }
+
+// .theme--light.v-application {
+//   background: #fff4e7;
+// }
+
+.component-overlay {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.enabled-popconfirm-content {
+  pointer-events: unset !important;
+  opacity: 1 !important;
+  padding: 8px 0px 10px !important;
+}
+
+.menu-item-active-theme-dark {
+  color: #fff !important;
+}
+
+.menu-item-active-light-dark {
+  color: #8b1936 !important;
+}
+
+.my-content-style .v-subheader.theme--dark {
+  font-weight: 500;
+  /*color: #fff;*/
+}
+
+.my-content-style .v-subheader.theme--light {
+  font-weight: 500;
+  /*color: #000;*/
+}
+
+.my-content-style
+  .v-list-item.v-list-item--link.theme--dark
+  .v-list-item__content
+  .v-list-item__title {
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+.my-content-style
+  .v-list-item.v-list-item--link.theme--light
+  .v-list-item__content
+  .v-list-item__title {
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+/* .my-content-style .v-list--dense .v-list-item .v-list-item__title{
+    font-weight: 400;
+  } */
+
+.third-party-payer-tooltip-content {
+  background: #fff;
+  /*border: thin solid #000;*/
+  pointer-events: unset !important;
+  max-height: 380px;
+  overflow: auto;
+  opacity: 1 !important;
+  color: #000;
+  padding: 0 8px !important;
+}
+
+/*//1. Text*/
+.int-body {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.int-body-bold {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+p {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.bold {
+  font-family: "Inter", sans-serif;
+  font-weight: 700; 
+}
+
+.italic {
+  font-family: "Inter", sans-serif;
+  font-style: italic;
+}
+
+.int-number-body {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 400; 
+  font-size: 14px;
+  line-height: 18px;
+  margin-bottom: 18px !important;
+}
+
+.int-notes {
+  font-family: "Inter", monospace;
+  font-weight: 400; 
+  font-size: 12px;
+  line-height: 16px;
+  margin-bottom: 10px !important;
+}
+
+
+/*// 2. Titles */
+.int-big-title {
+  font-family: "Inter", sans-serif;
+  font-weight: 700; 
+  font-size: 24px;
+  line-height: 28px;
+  margin-bottom: 16px !important;
+}
+
+.int-title {
+  font-family: "Inter", sans-serif;
+  font-weight: 700; 
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 16px !important;
+}
+
+.int-sub-title {
+  font-family: "Inter", sans-serif;
+  font-weight: 200;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.int-t1 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600; 
+  font-size: 42px;
+  line-height: 46px;
+}
+
+.int-t2 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600; 
+  font-size: 36px;
+  line-height: 40px;
+}
+
+.int-t3 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600; 
+  font-size: 28px;
+  line-height: 32px;
+}
+
+.int-t4 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600; 
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.int-t5 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600; 
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.int-t6 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600; 
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 16px !important;
+}
+
+/*// 3 Display*/
+
+h1 {
+  font-family: "Red Hat Display", sans-serif;
+  font-weight: 700; 
+  font-size: 42px;
+  line-height: 46px;
+  /*margin-bottom: 16px !important;*/
+}
+
+h2 {
+  font-family: "Red Hat Display", sans-serif;
+  font-weight: 700; 
+  font-size: 36px;
+  line-height: 40px;
+  /*margin-bottom: 16px !important;*/
+}
+
+h3 {
+  font-family: "Red Hat Display", sans-serif;
+  font-weight: 700; 
+  font-size: 28px;
+  line-height: 32px;
+  /*margin-bottom: 16px !important;*/
+}
+
+h4 {
+  font-family: "Red Hat Display", sans-serif;
+  font-weight: 700; 
+  font-size: 24px;
+  line-height: 28px;
+  /*margin-bottom: 10px !important;*/
+}
+
+h5 {
+  font-family: "Red Hat Display", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  /*margin-bottom: 10px !important;*/
+}
+
+
+.int-button {
+  font-family: "Inter", sans-serif;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  line-height: 16px;
+}
+
+.int-micro {
+  font-family: "Inter", sans-serif;
+  font-weight: 400 !important; 
+  font-size: 10px !important;
+  line-height: 14px;
+}
+
+.text-medium-simple {
+  /* Body */
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 10px;
+}
+
+.text-medium-bold {
+
+  /* Body */
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 10px;
+  /* 142.857% */
+}
+.text-big-normal {
+
+  /* Buttons */
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 125% */
+}
+
+.inter-title{
+  
+  /* Title */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 120% */
+}
+
+
+.text-medium-bold-body {
+
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: -0.3px;
+}
+
+.text-big {
+
+  /* Buttons */
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.text-big-bold {
+
+  /* Buttons */
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 10px;
+  /* 125% */
+}
+
+.text-big-inter-bold {
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.text-note{
+
+  /* Notas */
+  font-family: Rubik;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+}
+
+.rubik-micro{
+
+  /* Micro */
+  font-family: Rubik;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 160% */
+}
+
+.rubik-title{
+
+  /* Titulo */
+  font-family: Rubik;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px; /* 133.333% */
+}
+
+.inter-body{
+  /* Body */
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 128.571% */
+}
+
+.inter-body-url{
+  /* Body */
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 128.571% */
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+}
+
+.inter-14-sub{
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 24px; /* 120% */
+}
+
+.inter-20-sub{
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.inter-t5{
+  /* T5 */
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 111.111% */
+}
+
+.bold-body{
+  /* Bold_Body */
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px; /* 128.571% */
+}
+
+.roboto-mono-number{
+  font-family: "Roboto Mono";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.roboto-mono-number-normal{
+  /* Number_Body */
+  font-family: "Roboto Mono";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 128.571% */
+}
+
+.title-card{
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.inter-notes{
+  /* Notes */
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: normal;
+}

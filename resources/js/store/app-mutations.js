@@ -1,0 +1,8 @@
+export const SET_DRAWER_BAR = 'SET_DRAWER_BAR';
+export const SET_THEME = 'SET_THEME';
+export const SET_USER = 'SET_USER';
+export const SET_USERNAME = 'SET_USERNAME';
+export const SET_USER_ROLES = 'SET_USER_ROLES';
+export const SET_ADD_UP_TITLE = 'SET_ADD_UP_TITLE';
+export const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
+export const SET_SUCCESS_MESSAGE = 'SET_SUCCESS_MESSAGE';
