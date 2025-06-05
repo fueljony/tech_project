@@ -10,11 +10,7 @@ export default defineConfig(({ mode }) => {
     return {
         plugins: [
             vue(),
-            laravel([
-                "resources/sass/app.scss",
-                "resources/js/surveys.js",
-                "resources/js/students.js",
-            ]),
+            laravel(["resources/sass/app.scss", "resources/js/app.js"]),
             // react(),
 
             Components({
