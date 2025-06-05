@@ -4,7 +4,7 @@
 
 <template>
   <div>
-    <v-btn>dvsdv</v-btn>
+    list your surveys in a table here, add "edit" button to edit the survey, on survey name click to go survey
   </div>
 </template>
 
