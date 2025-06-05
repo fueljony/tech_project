@@ -4,7 +4,7 @@ use App\Http\Controllers\SurveyQuestionController;
 use App\Http\Controllers\SurveysController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'App\Controllers\SurveysController@index');
+Route::get('/', 'App\Http\Controllers\SurveysController@index');
 
 Route::get('/students', function () {
     return view('students');
