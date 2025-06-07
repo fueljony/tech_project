@@ -10,7 +10,8 @@ services:
             - 'host.docker.internal:host-gateway'
         ports:
             - '${APP_PORT:-80}:80'
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+            # NOTE: this port needs to match what is in vite.config.js (or that needs to match this...). after changing the port, a full rebuild (sail build --no-cache) is required
+            - '${VITE_PORT:-3001}:${VITE_PORT:-3001}'
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
