@@ -2,7 +2,7 @@
 import { useSurveyStore } from '../store/survey'
 
 export default {
-  name: 'SurveyEditorView',
+  name: 'SurveyEditView',
   
   data() {
     return {
@@ -174,4 +174,4 @@ export default {
     font-weight: 400;
   }
 }
-</style>
+</style> 

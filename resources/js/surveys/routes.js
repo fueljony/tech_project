@@ -1,5 +1,5 @@
 import Index from "./views/Index.vue";
-import Edit from "./views/Edit.vue";
+import SurveyEdit from "./views/SurveyEdit.vue";
 import Show from "./views/Show.vue";
 import Create from "./views/Create.vue";
 
@@ -22,7 +22,7 @@ export default [
         path: "/:id/edit",
         name: "survey.edit",
         components: {
-            default: Edit,
+            default: SurveyEdit,
         },
     },
     {
