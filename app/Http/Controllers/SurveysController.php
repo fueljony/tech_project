@@ -28,11 +28,17 @@ class SurveysController extends Controller
      */
     public function show(string $id)
     {
-        $survey = Survey::find($id);
+        $survey = Survey::with('questions')->find($id);
 
-        # here you need to show the survey to the respondent
-        return view('surveys.respondent', compact('survey'));
+        if (!request()->expectsJson()) {
+            return view('surveys.respondent', compact('survey'));
+        }
+
+        return new JsonResponse([
+            'survey' => $survey
+        ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.

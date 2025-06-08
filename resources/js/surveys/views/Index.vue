@@ -1,6 +1,10 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useSurveyStore } from '../store';
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
+window.toastr = toastr;
+
 const surveyStore = useSurveyStore();
 const { surveys } = storeToRefs(surveyStore);
 surveyStore.loadInitialData();
@@ -13,20 +17,19 @@ const tableHeaders = [
 
 <template>
   <div>
-    {{ surveys }}
     <v-data-table :headers="tableHeaders" :items="surveys">
       <template v-slot:item.actions="{ item }">
         <RouterLink :to="{
           name: 'survey.show',
           params: { id: item.id }
         }">
-          <v-btn color="primary" outlined @click="surveyStore.editSurvey(item.id)" class="mr-3" small>View</v-btn>
+          <v-btn color="primary" outlined class="mr-3" small>View</v-btn>
         </RouterLink>
         <RouterLink :to="{
           name: 'survey.edit',
           params: { id: item.id }
         }">
-          <v-btn @click="surveyStore.editSurvey(item.id)" small>Edit</v-btn>
+          <v-btn small>Edit</v-btn>
         </RouterLink>
       </template>
     </v-data-table>
