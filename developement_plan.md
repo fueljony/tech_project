@@ -1,5 +1,15 @@
 # Development Plan for Survey Generator App
 
+## Technical Notes
+- Using Docker container (port 3001)
+- All commands via `./vendor/bin/sail`
+- vue is vue2
+- Design system: Vuetify
+- State management: Pinia
+- Database: SQLite
+- Run migrations between adding models
+- Follow design screenshots in design_screenshots/
+
 ## Progress Tracking
 After completing each task/step, I will provide:
 1. **Completion Summary**: A brief description of what was implemented
@@ -122,15 +132,15 @@ Potential Gaps:
     - [ ] Question list state
     - [ ] Editing state
     - [ ] Validation state
-  - [ ] Implement API integration
-    - [ ] Fetch survey details
+  - [x] Implement API integration
+    - [x] Fetch survey details
     - [ ] Fetch questions
     - [ ] Add question
     - [ ] Update question
     - [ ] Delete question
     - [ ] Reorder questions
-  - [ ] Build components
-    - [ ] Question list
+  - [x] Build components
+    - [x] Question list
     - [ ] Question editor
     - [ ] Question type selector
     - [ ] Question preview
@@ -168,12 +178,3 @@ Potential Gaps:
   - [ ] Validation
   - [ ] Retrieval
   - [ ] Error handling
-
-## Technical Notes
-- Using Docker container (port 3001)
-- All commands via `./vendor/bin/sail`
-- Design system: Vuetify
-- State management: Pinia
-- Database: SQLite
-- Run migrations between adding models
-- Follow design screenshots in design_screenshots/

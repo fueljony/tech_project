@@ -11,17 +11,17 @@ import {
 	SET_ADD_UP_TITLE,
 } from './app-mutations';
 
-import courseAdminTrainingStore from '../training/course/store';
-import moduleSectionsAdminTrainingStore from '../training/sections/store';
-import moduleSectionQuizzesAdminTrainingStore from '../training/quizzes/store';
-import practiceExamAdminTrainingStore from '../training/practice_exam/store';
-import moduleSectionHighlightsAdminTrainingStore from '../training/highlights/store';
-import reviewQuizzesAdminTrainingStore from '../training/review_quizzes/store';
-import externshipFacilitiesDatesAdminStore from '../externship/calendar/store';
-import externshipFacilitiesDatesStudentAdminStore from '../externship/calendar-student/store';
+// import courseAdminTrainingStore from '../training/course/store';
+// import moduleSectionsAdminTrainingStore from '../training/sections/store';
+// import moduleSectionQuizzesAdminTrainingStore from '../training/quizzes/store';
+// import practiceExamAdminTrainingStore from '../training/practice_exam/store';
+// import moduleSectionHighlightsAdminTrainingStore from '../training/highlights/store';
+// import reviewQuizzesAdminTrainingStore from '../training/review_quizzes/store';
+// import externshipFacilitiesDatesAdminStore from '../externship/calendar/store';
+// import externshipFacilitiesDatesStudentAdminStore from '../externship/calendar-student/store';
 
-import externshipStudentsIndexAdminStore from '../externship/students/store';
-import externshipStudentsAssignmentAdminStore from '../externship/students-assignment/store';
+// import externshipStudentsIndexAdminStore from '../externship/students/store';
+// import externshipStudentsAssignmentAdminStore from '../externship/students-assignment/store';
 
 // const vuexLocal = new VuexPersistence({
 //   storage: window.localStorage,
@@ -42,6 +42,7 @@ const store = {
 		isProcessing: false,
 		isModalProcessing: false,
 	}),
+
 	mutations: {
 		[SET_DRAWER_BAR](state, payload) {
 			state.drawerBar = payload;
@@ -77,8 +78,11 @@ const store = {
 			state.isModalProcessing = payload;
 		},
 	},
+
 	actions: {},
+	
 	getters: {},
+	
 	modules: {
 		'admin/training/modules': courseAdminTrainingStore,
 		'admin/training/review_quizzes': reviewQuizzesAdminTrainingStore,

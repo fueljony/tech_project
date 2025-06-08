@@ -1,5 +1,19 @@
-<script setup>
+<script>
+import { useSurveyStore } from './store/survey';
 
+export default {
+  name: 'App',
+  created() {
+    // central point to initialize data in store
+    this.surveyStore.fetchSurveys();
+  },
+
+  computed: {
+    surveyStore() {
+      return useSurveyStore();
+    }
+  }
+}
 </script>
 
 <template>
@@ -7,8 +21,9 @@
   <v-row>
     <v-col>
       <v-container>
-
-      <router-view></router-view>
+      <div class="tech-project">
+        <router-view></router-view>
+      </div>
       </v-container>
     </v-col>
   </v-row>

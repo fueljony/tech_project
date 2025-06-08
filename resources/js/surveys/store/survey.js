@@ -9,6 +9,12 @@ export const useSurveyStore = defineStore('survey', {
         error: null
     }),
 
+    getters: {
+        getSurveyById: (state) => (id) => {
+            return state.surveys.find(s => s.id == id)
+        }
+    },
+
     actions: {
         async fetchSurveys() {
             this.loading = true
@@ -17,18 +23,6 @@ export const useSurveyStore = defineStore('survey', {
                 this.surveys = response.data.surveys
             } catch (error) {
                 this.error = error.response?.data?.message || 'Failed to fetch surveys'
-            } finally {
-                this.loading = false
-            }
-        },
-
-        async fetchSurvey(id) {
-            this.loading = true
-            try {
-                const response = await axios.get(`/surveys/${id}`)
-                this.currentSurvey = response.data
-            } catch (error) {
-                this.error = error.response?.data?.message || 'Failed to fetch survey'
             } finally {
                 this.loading = false
             }
@@ -49,20 +43,23 @@ export const useSurveyStore = defineStore('survey', {
         },
 
         async updateSurvey(id, surveyData) {
-            this.loading = true
-            try {
-                const response = await axios.put(`/surveys/${id}`, surveyData)
-                const index = this.surveys.findIndex(s => s.id === id)
-                if (index !== -1) {
-                    this.surveys[index] = response.data
-                }
-                return response.data
-            } catch (error) {
-                this.error = error.response?.data?.message || 'Failed to update survey'
-                throw error
-            } finally {
-                this.loading = false
+          this.loading = true
+
+          try {
+            const response = await axios.put(`/surveys/${id}`, surveyData)
+            const index = this.surveys.findIndex(s => s.id === id)
+            if (index !== -1) {
+                this.surveys[index] = response.data
             }
+          
+            return response.data
+          } catch (error) {
+            this.error = error.response?.data?.message || 'Failed to update survey'
+          
+            throw error
+          } finally {
+            this.loading = false
+          }
         },
 
         async deleteSurvey(id) {

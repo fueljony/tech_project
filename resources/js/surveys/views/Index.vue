@@ -61,15 +61,28 @@ export default {
 
 <template>
   <div class="surveys-index">
-    <div class="d-flex align-center mb-4" style="gap: 16px;">
-      <h1 class="mr-auto">Surveys</h1>
-      <v-btn color="primary" @click="$router.push('/create')">
+    <div class="d-flex align-center justify-space-between mb-4">
+      <h1 class="">Surveys</h1>
+      <v-btn 
+        color="secondary" 
+        rounded
+        @click="$router.push('/create')"
+      >
         Create Survey
       </v-btn>
     </div>
 
-    <v-progress-linear v-if="store.loading" indeterminate class="mb-4" />
-    <v-alert v-else-if="store.error" type="error" class="mb-4">
+    <v-progress-linear 
+      v-if="store.loading" 
+      indeterminate 
+      class="mb-4" 
+    />
+
+    <v-alert 
+      v-else-if="store.error" 
+      type="error" 
+      class="mb-4"
+    >
       {{ store.error }}
     </v-alert>
 
@@ -84,7 +97,7 @@ export default {
         <v-chip :color="getStatusColor(item.status)" small>{{ item.status }}</v-chip>
       </template>
       <template #item.actions="{ item }">
-        <v-btn text @click="$router.push(`/surveys/${item.id}/edit`)">Edit</v-btn>
+        <v-btn text @click="$router.push(`/${item.id}/edit`)">Edit</v-btn>
         <v-btn text color="error" @click="confirmDelete(item)">Delete</v-btn>
       </template>
     </v-data-table>
