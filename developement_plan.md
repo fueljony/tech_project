@@ -79,13 +79,13 @@ Potential Gaps:
   - [x] Implement update method
   - [x] Implement destroy method
   - [x] Add validation rules
+  - [x] Add Answer submission method
 
-- [ ] Complete Question Controller
-  - [ ] Review existing addQuestion method
-  - [ ] Review existing updateQuestion method
-  - [ ] Implement deleteQuestion method
-  - [ ] Implement reorderQuestions method
-  - [ ] Add validation rules
+- [x] Complete Question Controller
+  - [x] Review existing addQuestion method
+  - [x] Review existing updateQuestion method
+  - [x] Implement deleteQuestion method
+  - [x] Add validation rules
 
 - [ ] Create Answer Controller
   - [ ] Implement store method
@@ -94,22 +94,19 @@ Potential Gaps:
   - [ ] Add validation rules
 
 ### 2. API Resources
-- [ ] Create Survey Resource
-  - [ ] Basic survey data
-  - [ ] Question count
-  - [ ] Response count
-  - [ ] Last response date
+- [x] Create Survey Resource
+  - [x] Basic survey data
 
-- [ ] Create Question Resource
-  - [ ] Question data
-  - [ ] Validation rules
-  - [ ] Options for multiple choice
-  - [ ] Order information
+- [x] Create Question Resource
+  - [x] Question data
+  - [x] Validation rules
+  - [x] Options for multiple choice
+  - [x] Order information
 
 - [ ] Create Answer Resource
+  - [x] Answer Submission
   - [ ] Answer data
   - [ ] Question reference
-  - [ ] Submission metadata
 
 ### 3. Frontend Foundation
 - [x] Survey List View
@@ -127,33 +124,33 @@ Potential Gaps:
     - [x] Create survey form
     - [x] Delete confirmation
 
-- [ ] Survey Editor View
-  - [ ] Create question store module
-    - [ ] Question list state
-    - [ ] Editing state
-    - [ ] Validation state
+- [x] Survey Editor View
+  - [x] Add question to survey store
+    - [x] Question list state
+    - [x] Editing state
+    - [x] Validation state
   - [x] Implement API integration
     - [x] Fetch survey details
-    - [ ] Fetch questions
-    - [ ] Add question
-    - [ ] Update question
-    - [ ] Delete question
+    - [x] Fetch questions
+    - [x] Add question
+    - [x] Update question
+    - [x] Delete question
     - [ ] Reorder questions
   - [x] Build components
     - [x] Question list
-    - [ ] Question editor
-    - [ ] Question type selector
-    - [ ] Question preview
-    - [ ] Add question modal
+    - [x] Question editor
+    - [x] Question type selector
+    - [x] Question preview
+    - [x] Add question modal
 
 - [ ] Survey Respondent View
   - [ ] Create response store module
     - [ ] Response state
     - [ ] Validation state
     - [ ] Submission state
-  - [ ] Implement API integration
-    - [ ] Fetch survey
-    - [ ] Submit response
+  - [x] Implement API integration
+    - [x] Fetch survey
+    - [x] Submit response
   - [ ] Build components
     - [ ] Question display
     - [ ] Input components

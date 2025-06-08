@@ -5,11 +5,17 @@ export default {
   name: 'SurveyShowView',
   data() {
     return {
+      /** questions in the survey */
       questions: [],
+      /** user entered answers */
       answers: {},
+      /** loading flag in case we need to show status in UI */
       loading: false,
+      /** error state of form */
       error: null,
+      /** if form is touched */
       touched: false,
+      /** marks form valid */
       formValid: false,
     }
   },
@@ -27,14 +33,21 @@ export default {
       return this.surveyStore.getSurveyById(this.surveyId)
     },
 
+    /**
+     * Validation (for now) checks that all fields have values.
+     *
+     * @returns {Boolean}
+     */
     isValid() {
       return (
         this.questions.length > 0 &&
+
         this.questions.every(q => {
           const val = this.answers[q.id]
           if (q.value_type === 'multiple_answer') {
             return Array.isArray(val) && val.length > 0
           }
+
           return val !== '' && val !== null && val !== undefined
         })
       )
@@ -42,13 +55,18 @@ export default {
   },
 
   methods: {
+    /**
+     * calls fetchSurveyQuestions in store to get all questions for this survey
+     */
     async fetchQuestions() {
       this.loading = true
       this.error = null
 
       try {
         const response = await this.surveyStore.fetchSurveyQuestions(this.surveyId)
+
         this.questions = response.data.questions
+
         // Initialize answers object
         this.questions.forEach(q => {
           if (q.value_type === 'multiple_answer') {
@@ -64,22 +82,35 @@ export default {
       }
     },
 
-    getOptions(q) {
-      if (!q.options) return []
-      if (Array.isArray(q.options)) return q.options
-      if (typeof q.options === 'object') return Object.values(q.options)
-      if (typeof q.options === 'string') return q.options.split('\n')
-      
+    /**
+     * gets array of options for multiple choice question
+     *
+     * @param {Object} question
+     * @returns {String[]|[]}
+     */
+    getOptions(question) {
+      if (!question.options) return []
+      if (Array.isArray(question.options)) return question.options
+      if (typeof question.options === 'object') return Object.values(question.options)
+      if (typeof question.options === 'string') return question.options.split('\n')
+
       return []
     },
 
+    /**
+     * saves user input.
+     *   - marks form as touched
+     *   - checks isValid flag
+     *   - attempts to submit/save answers
+     */
     async save() {
       this.touched = true
       if (!this.isValid) return
 
       try {
         await this.surveyStore.submitAnswers(this.surveyId, this.answers)
-        
+
+        // goes back to surveys list view
         this.$router.push('/')
       } catch (e) {
         this.error = e.response?.data?.message || 'Failed to save answers'
@@ -88,6 +119,7 @@ export default {
   },
 
   async mounted() {
+    // this should never happen, but is here as a sanity check
     if (!this.survey) {
       await this.surveyStore.ensureSurveyData(this.surveyId)
     }
@@ -106,7 +138,7 @@ export default {
 
     <v-card class="mb-4 pt-4">
       <v-card-title class="background-secondary text-white">
-          {{ survey?.name || 'Survey' }}
+        {{ survey?.name || 'Survey' }}
       </v-card-title>
 
       <v-card-text class="pt-4">
@@ -175,8 +207,8 @@ export default {
                   prepend-inner-icon="mdi-calendar"
                 />
 
-                <div 
-                  v-else-if="q.value_type === 'multiple_answer'" 
+                <div
+                  v-else-if="q.value_type === 'multiple_answer'"
                   class="survey-show__input d-flex flex-column gap-2"
                 >
                   <v-checkbox

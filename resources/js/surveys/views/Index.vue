@@ -141,22 +141,20 @@ export default {
           </v-btn>
 
           <v-btn 
-            text 
             rounded 
             outlined 
             x-small 
-            color="secondary" 
+            color="secondary"
             @click="$router.push(`/${item.id}/edit`)"
           >
             Edit
           </v-btn>
 
           <v-btn 
-            text 
             rounded 
             outlined 
             x-small 
-            color="error" 
+            color="error"  
             @click="confirmDelete(item)"
           >
             Delete

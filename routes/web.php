@@ -22,5 +22,3 @@ Route::get('/survey/{survey}/questions', [SurveyQuestionController::class, 'getS
 Route::delete('/survey/{survey}/question/{survey_question}', [SurveyQuestionController::class, 'deleteQuestion'])->name('survey.delete_question');
 
 Route::post('/survey/{survey}/submit', [SurveyAnswerController::class, 'store'])->name('survey.submit');
-
-// todo: add delete route and function in controller

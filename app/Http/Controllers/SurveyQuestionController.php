@@ -53,6 +53,11 @@ class SurveyQuestionController extends Controller
             ], 403);
         }
 
+        // Delete any associated answers first (cascade)
+        // TODO jake - would this be a place where we want to guard against the deletion instead?
+        $surveyQuestion->answer()->delete();
+        
+        // Now delete the question
         $surveyQuestion->delete();
 
         return response()->json([

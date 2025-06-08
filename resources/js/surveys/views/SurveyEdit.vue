@@ -5,10 +5,11 @@ import QuestionModal from './QuestionModal.vue'
 
 export default {
   name: 'SurveyEditView',
-  
+
   data() {
     return {
-      deleteDialog: false,
+      /** open/close state of delete confirmation dialog */
+      showDeleteDialog: false,
       questionToDelete: null,
       titleInput: '',
       titleError: false,
@@ -25,7 +26,7 @@ export default {
       questionsError: null,
     }
   },
-  
+
   computed: {
     surveyStore() {
       return useSurveyStore();
@@ -55,7 +56,7 @@ export default {
   methods: {
     getOptionsText(options, type) {
       if (!options || (Array.isArray(options) && options.length === 0)) return '-'
-    
+
       if (type === 'multiple_choice' || type === 'multiple_answer') {
         if (Array.isArray(options)) return options.join('\n')
         if (typeof options === 'string') return options
@@ -65,11 +66,19 @@ export default {
       return '-'
     },
 
-    confirmDelete(question) {
+    /**
+     * marks question for deletion and opens the confirmation dialog
+     *
+     * @param {Object} question
+     */
+    openDeleteConfirmationDialog(question) {
       this.questionToDelete = question
-      this.deleteDialog = true
+      this.showDeleteDialog = true
     },
 
+    /**
+     * Fires off deleteQuestion call.  If successful: will repopulate the questions array with response data.
+     */
     async deleteQuestion() {
       try {
         const { success, questions } = await this.surveyStore.deleteQuestion(
@@ -81,13 +90,16 @@ export default {
           this.questions = questions;
         }
 
-        this.deleteDialog = false;
+        this.showDeleteDialog = false;
         this.questionToDelete = null;
       } catch (e) {
         this.questionsError = e.response?.data?.message || 'Failed to delete question';
       }
     },
 
+    /**
+     * Handles Title input and updates survey with new title if input is valid/not empty
+     */
     async updateTitle() {
       if (!this.titleInput) {
         this.titleError = true;
@@ -95,7 +107,7 @@ export default {
       }
 
       this.titleError = false;
-      
+
       if (this.survey && this.titleInput !== this.survey.name) {
         try {
           await this.surveyStore.updateSurvey(this.survey.id, { ...this.survey, name: this.titleInput });
@@ -105,31 +117,53 @@ export default {
       }
     },
 
+    /**
+     * opens question create/edit modal without context, so will create a new question.
+     */
     openCreateModal() {
       this.editingQuestion = null;
       this.showQuestionModal = true;
     },
 
+    /**
+     * opens the question create/edit modal with existing question as context
+     *
+     * @param {Object} question - the question to be edited
+     */
     openEditModal(question) {
       this.editingQuestion = question;
       this.showQuestionModal = true;
     },
 
+    /**
+     * closes the question create/edit modal
+     */
     closeQuestionModal() {
       this.showQuestionModal = false;
       this.editingQuestion = null;
     },
 
+    /**
+     * saveQuestion will update an existing question, or add a new one based on if this.editingQuestion is populated.
+     *
+     * TODO jake - I don't love this pattern of using a data property to determine which question is being updated. Would rather pass directly from method call
+     *
+     * @param {Object} question - question data to save
+     * @returns {Promise<void>}
+     */
     async saveQuestion(question) {
       try {
         let response;
+
         if (this.editingQuestion) {
           response = await this.surveyStore.updateQuestion(
             this.surveyId,
             this.editingQuestion.id,
             question
           );
-        } else {
+        }
+
+        else {
           response = await this.surveyStore.addQuestion(this.surveyId, question);
         }
 
@@ -144,6 +178,9 @@ export default {
       }
     },
 
+    /**
+     * fetches questions for survey and populates `this.questions` with response
+     */
     async fetchQuestions() {
       this.questionsLoading = true;
       this.questionsError = null;
@@ -163,7 +200,7 @@ export default {
 
   async mounted() {
     try {
-      // asyncronous call to get survey data, makes sure that this.survey is in scope
+      // async call to get survey data, makes sure that this.survey is in scope
       await this.surveyStore.ensureSurveyData(this.surveyId);
       await this.fetchQuestions();
     } catch (e) {
@@ -184,9 +221,9 @@ export default {
         <v-icon left>mdi-arrow-left</v-icon>
         back to surveys
       </v-btn>
-     
-      <v-btn 
-        color="secondary" 
+
+      <v-btn
+        color="secondary"
         rounded
         @click="openCreateModal"
       >
@@ -194,7 +231,7 @@ export default {
         add question
       </v-btn>
     </div>
-    
+
     <v-card color="secondary" class="mb-4">
       <v-card-title class="white--text">
         <div>
@@ -211,7 +248,7 @@ export default {
           </v-text-field>
         </div>
       </v-card-title>
-    
+
       <v-card-text style="padding:0;">
         <v-data-table
           :headers="headers"
@@ -224,24 +261,24 @@ export default {
           <template #item.options="{ item }">
             <span style="white-space: pre-line;">{{ getOptionsText(item.options, item.value_type) }}</span>
           </template>
-    
+
           <template #item.actions="{ item }">
             <div class="d-flex gap-4">
-              <v-btn 
-                rounded 
-                outlined 
-                x-small 
-                color="secondary" 
+              <v-btn
+                rounded
+                outlined
+                x-small
+                color="secondary"
                 @click="openEditModal(item)"
               >
                 Edit
               </v-btn>
-              <v-btn 
-                rounded 
-                outlined 
-                x-small 
-                color="error" 
-                @click="confirmDelete(item)"
+              <v-btn
+                rounded
+                outlined
+                x-small
+                color="error"
+                @click="openDeleteConfirmationDialog(item)"
               >
                 Delete
               </v-btn>
@@ -252,17 +289,17 @@ export default {
       </v-card-text>
     </v-card>
 
-    <v-dialog v-model="deleteDialog" max-width="400">
+    <v-dialog v-model="showDeleteDialog" max-width="400">
       <v-card>
         <v-card-title>Delete Question</v-card-title>
-        
+
         <v-card-text>
           Are you sure you want to delete this question?
         </v-card-text>
 
         <v-card-actions>
           <v-spacer />
-          <v-btn text @click="deleteDialog = false">Cancel</v-btn>
+          <v-btn text @click="showDeleteDialog = false">Cancel</v-btn>
           <v-btn color="error" @click="deleteQuestion">Delete</v-btn>
         </v-card-actions>
       </v-card>
@@ -285,4 +322,4 @@ export default {
     font-weight: 400;
   }
 }
-</style> 
+</style>

@@ -1,3 +1,8 @@
+// color variables
+$secondary: #092673;
+$secondary-solid-blue: #344458;
+$neutral-300: #e1e1e1;
+
 .tech-project {
   // spacing
   .gap-1 { 
@@ -19,13 +24,13 @@
     gap: 1.5rem; 
   }
 
-  // colors -- trying to match with vuetify.js as much as possible
+  // direct color application classes
   .v-data-table-header {
-    background-color: #e1e1e1;
+    background-color: $neutral-300;
   }
 
   .background-secondary {
-    background-color: #092673;
+    background-color: $secondary;
   }
 
   .text-white {
