@@ -76,11 +76,14 @@ export default {
     async save() {
       this.touched = true
       if (!this.isValid) return
-      // TODO: send answers to backend
-      // e.g. await this.surveyStore.submitAnswers(this.surveyId, this.answers)
-      alert('Answers saved! (stub)')
-    
-      this.$router.push('/')
+
+      try {
+        await this.surveyStore.submitAnswers(this.surveyId, this.answers)
+        
+        this.$router.push('/')
+      } catch (e) {
+        this.error = e.response?.data?.message || 'Failed to save answers'
+      }
     },
   },
 

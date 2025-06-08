@@ -134,6 +134,19 @@ export const useSurveyStore = defineStore('survey', {
             }
             
             return this.getSurveyById(id);
+        },
+
+        async submitAnswers(surveyId, answers) {
+            this.loading = true
+            try {
+                const { data } = await axios.post(`/survey/${surveyId}/submit`, { answers })
+                return data
+            } catch (error) {
+                this.error = error.response?.data?.message || 'Failed to submit answers'
+                throw error
+            } finally {
+                this.loading = false
+            }
         }
     }
 }) 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SurveyQuestionController;
 use App\Http\Controllers\SurveysController;
+use App\Http\Controllers\SurveyAnswerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\SurveysController@index');
@@ -19,5 +20,7 @@ Route::put('/survey/{survey}/update_question/{survey_question}', [SurveyQuestion
 Route::get('/survey/{survey}/questions', [SurveyQuestionController::class, 'getSurveyQuestions'])->name('survey.questions');
 
 Route::delete('/survey/{survey}/question/{survey_question}', [SurveyQuestionController::class, 'deleteQuestion'])->name('survey.delete_question');
+
+Route::post('/survey/{survey}/submit', [SurveyAnswerController::class, 'store'])->name('survey.submit');
 
 // todo: add delete route and function in controller
