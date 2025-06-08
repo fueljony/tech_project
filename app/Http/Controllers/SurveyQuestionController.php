@@ -30,6 +30,7 @@ class SurveyQuestionController extends Controller
         return response()->json([
             'success' => true,
             'msg' => 'Question Updated',
+            'questions' => $survey->questions()->get()
         ]);
     }
 

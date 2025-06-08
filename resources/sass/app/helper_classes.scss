@@ -24,6 +24,14 @@
     background-color: #e1e1e1;
   }
 
+  .background-secondary {
+    background-color: #092673;
+  }
+
+  .text-white {
+    color: white;
+  }
+
   // todo jake - being overridden by vuetify theme (more deeply nested).  Don't want to use !important as hack.
   .v-data-table-header th {
     color: black;

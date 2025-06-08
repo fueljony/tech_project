@@ -45,6 +45,7 @@ export const useSurveyStore = defineStore('survey', {
             try {
                 const response = await axios.post('/surveys', surveyData)
                 this.surveys.push(response.data)
+                
                 return response.data
             } catch (error) {
                 this.error = error.response?.data?.message || 'Failed to create survey'
@@ -107,6 +108,20 @@ export const useSurveyStore = defineStore('survey', {
                 return data
             } catch (error) {
                 this.error = error.response?.data?.message || 'Failed to delete question'
+                throw error
+            } finally {
+                this.loading = false
+            }
+        },
+
+        async updateQuestion(surveyId, questionId, questionData) {
+            this.loading = true
+            try {
+                const { data } = await axios.put(`/survey/${surveyId}/update_question/${questionId}`, questionData)
+
+                return data
+            } catch (error) {
+                this.error = error.response?.data?.message || 'Failed to update question'
                 throw error
             } finally {
                 this.loading = false

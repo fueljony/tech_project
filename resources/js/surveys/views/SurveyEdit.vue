@@ -1,7 +1,7 @@
 <script>
 import { useSurveyStore } from '../store/survey'
 
-import CreateQuestionModal from './CreateQuestionModal.vue'
+import QuestionModal from './QuestionModal.vue'
 
 export default {
   name: 'SurveyEditView',
@@ -12,7 +12,8 @@ export default {
       questionToDelete: null,
       titleInput: '',
       titleError: false,
-      showCreateModal: false,
+      showQuestionModal: false,
+      editingQuestion: null,
       headers: [
         { text: 'Question', value: 'question' },
         { text: 'Type', value: 'value_type' },
@@ -105,11 +106,42 @@ export default {
     },
 
     openCreateModal() {
-      this.showCreateModal = true;
+      this.editingQuestion = null;
+      this.showQuestionModal = true;
     },
 
-    closeCreateModal() {
-      this.showCreateModal = false;
+    openEditModal(question) {
+      this.editingQuestion = question;
+      this.showQuestionModal = true;
+    },
+
+    closeQuestionModal() {
+      this.showQuestionModal = false;
+      this.editingQuestion = null;
+    },
+
+    async saveQuestion(question) {
+      try {
+        let response;
+        if (this.editingQuestion) {
+          response = await this.surveyStore.updateQuestion(
+            this.surveyId,
+            this.editingQuestion.id,
+            question
+          );
+        } else {
+          response = await this.surveyStore.addQuestion(this.surveyId, question);
+        }
+
+        if (response.success) {
+          this.questions = response.questions;
+        }
+
+        this.showQuestionModal = false;
+        this.editingQuestion = null;
+      } catch (e) {
+        this.questionsError = e.response?.data?.message || 'Failed to save question';
+      }
     },
 
     async fetchQuestions() {
@@ -127,20 +159,6 @@ export default {
         this.questionsLoading = false;
       }
     },
-
-    async saveNewQuestion(question) {
-      try {
-        const { success, questions } = await this.surveyStore.addQuestion(this.surveyId, question);
-
-        if (success) {
-          this.questions = questions;
-        }
-
-        this.showCreateModal = false;
-      } catch (e) {
-        // Optionally handle error
-      }
-    },
   },
 
   async mounted() {
@@ -154,7 +172,7 @@ export default {
   },
 
   components: {
-    CreateQuestionModal
+    QuestionModal
   },
 }
 </script>
@@ -214,7 +232,7 @@ export default {
                 outlined 
                 x-small 
                 color="secondary" 
-                disabled
+                @click="openEditModal(item)"
               >
                 Edit
               </v-btn>
@@ -250,10 +268,11 @@ export default {
       </v-card>
     </v-dialog>
 
-    <CreateQuestionModal
-      v-model="showCreateModal"
-      @save="saveNewQuestion"
-      @cancel="closeCreateModal"
+    <QuestionModal
+      v-model="showQuestionModal"
+      :question="editingQuestion"
+      @save="saveQuestion"
+      @cancel="closeQuestionModal"
     />
   </div>
 </template>

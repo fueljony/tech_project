@@ -1,18 +1,25 @@
 <script>
 /**
- * CreateQuestionModal.vue
- * Modal for creating a new survey question.
+ * QuestionModal.vue
+ * Modal for creating or editing a survey question.
+ * Props:
+ *   - value: Boolean - v-model for dialog open/close
+ *   - question: Object - Optional question data for edit mode
  * Emits:
  *   - save(question): when a valid question is submitted
  *   - cancel(): when the modal is closed without saving
  */
 export default {
-  name: 'CreateQuestionModal',
+  name: 'QuestionModal',
   props: {
     value: { 
       type: Boolean, 
       required: true 
     }, // v-model for dialog open/close
+    question: {
+      type: Object,
+      default: null
+    }
   },
 
   data() {
@@ -32,6 +39,23 @@ export default {
     }
   },
 
+  watch: {
+    question: {
+      handler(newQuestion) {
+        if (newQuestion) {
+          this.questionText = newQuestion.question
+          this.questionType = newQuestion.value_type
+          if (newQuestion.options) {
+            this.optionsArray = Array.isArray(newQuestion.options) 
+              ? [...newQuestion.options]
+              : Object.values(newQuestion.options)
+          }
+        }
+      },
+      immediate: true
+    }
+  },
+
   computed: {
     showOptions() {
       return (
@@ -45,6 +69,10 @@ export default {
       if (this.showOptions && this.optionsArray.length === 0) return false
       return true
     },
+
+    modalTitle() {
+      return this.question ? 'Edit question' : 'Create question'
+    }
   },
 
   methods: {
@@ -116,7 +144,7 @@ export default {
     <v-card class="create-question-modal">
       <div class="d-flex flex-column gap-4">
         <v-card-title class="headline font-weight-bold">
-          Create question
+          {{ modalTitle }}
         </v-card-title>
 
         <v-card-text>

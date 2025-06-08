@@ -1,14 +1,20 @@
 <script>
 import { ref, onMounted } from 'vue'
 import { useSurveyStore } from '../store/survey'
+import CreateSurveyModal from './CreateSurveyModal.vue'
 
 export default {
   name: 'SurveysIndex',
   
+  components: {
+    CreateSurveyModal
+  },
+
   setup() {
     const store = useSurveyStore()
     const deleteDialog = ref(false)
     const surveyToDelete = ref(null)
+    const showCreateModal = ref(false)
 
     const headers = [
       { text: 'Name', value: 'name' },
@@ -43,6 +49,25 @@ export default {
       }
     }
 
+    const openCreateModal = () => {
+      showCreateModal.value = true
+    }
+
+    const closeCreateModal = () => {
+      showCreateModal.value = false
+    }
+
+    const saveSurvey = async (surveyData) => {
+      try {
+        const survey = await store.createSurvey(surveyData)
+        showCreateModal.value = false
+        await store.fetchSurveys()
+        return survey
+      } catch (error) {
+        // Error is handled in the store
+      }
+    }
+
     onMounted(() => {
       store.fetchSurveys()
     })
@@ -51,9 +76,13 @@ export default {
       store,
       headers,
       deleteDialog,
+      showCreateModal,
       getStatusColor,
       confirmDelete,
-      deleteSurvey
+      deleteSurvey,
+      openCreateModal,
+      closeCreateModal,
+      saveSurvey
     }
   }
 }
@@ -62,11 +91,12 @@ export default {
 <template>
   <div class="surveys-index">
     <div class="d-flex align-center justify-space-between mb-4">
-      <h1 class="">Surveys</h1>
+      <h1 class="">Survey Designer</h1>
+
       <v-btn 
         color="secondary" 
         rounded
-        @click="$router.push('/create')"
+        @click="openCreateModal"
       >
         Create Survey
       </v-btn>
@@ -96,8 +126,20 @@ export default {
       <template #item.status="{ item }">
         <v-chip :color="getStatusColor(item.status)" small>{{ item.status }}</v-chip>
       </template>
+
       <template #item.actions="{ item }">
         <div class="d-flex gap-2">
+          <v-btn 
+            text 
+            rounded 
+            outlined 
+            x-small 
+            color="info400" 
+            @click="$router.push(`/${item.id}`)"
+          >
+            View
+          </v-btn>
+
           <v-btn 
             text 
             rounded 
@@ -126,9 +168,11 @@ export default {
     <v-dialog v-model="deleteDialog" max-width="400">
       <v-card>
         <v-card-title>Delete Survey</v-card-title>
+        
         <v-card-text>
           Are you sure you want to delete this survey?
         </v-card-text>
+
         <v-card-actions>
           <v-spacer />
           <v-btn text @click="deleteDialog = false">Cancel</v-btn>
@@ -136,6 +180,12 @@ export default {
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <CreateSurveyModal
+      v-model="showCreateModal"
+      @save="saveSurvey"
+      @cancel="closeCreateModal"
+    />
   </div>
 </template>
 
