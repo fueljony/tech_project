@@ -1,6 +1,8 @@
 <script>
 import { useSurveyStore } from '../store/survey'
 
+import CreateQuestionModal from './CreateQuestionModal.vue'
+
 export default {
   name: 'SurveyEditView',
   
@@ -10,6 +12,7 @@ export default {
       questionToDelete: null,
       titleInput: '',
       titleError: false,
+      showCreateModal: false,
       headers: [
         { text: 'Question', value: 'question' },
         { text: 'Type', value: 'value_type' },
@@ -89,7 +92,26 @@ export default {
         }
       }
     },
-  }
+
+    openCreateModal() {
+      this.showCreateModal = true
+    },
+    closeCreateModal() {
+      this.showCreateModal = false
+    },
+    async saveNewQuestion(question) {
+      try {
+        await this.surveyStore.addQuestion(this.surveyId, question)
+        this.showCreateModal = false
+      } catch (e) {
+        // Optionally handle error
+      }
+    },
+  },
+
+  components: {
+    CreateQuestionModal
+  },
 }
 </script>
 
@@ -102,9 +124,9 @@ export default {
       </v-btn>
      
       <v-btn 
-        color="primary" 
+        color="secondary" 
         rounded
-        disabled
+        @click="openCreateModal"
       >
         <v-icon left>mdi-plus</v-icon>
         add question
@@ -163,6 +185,12 @@ export default {
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <CreateQuestionModal
+      v-model="showCreateModal"
+      @save="saveNewQuestion"
+      @cancel="closeCreateModal"
+    />
   </div>
 </template>
 

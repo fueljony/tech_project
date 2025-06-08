@@ -18,16 +18,10 @@ export default {
 
 <template>
   <v-app>
-  <v-row>
-    <v-col>
-      <v-container>
-      <div class="tech-project">
-        <router-view></router-view>
-      </div>
-      </v-container>
-    </v-col>
-  </v-row>
-</v-app>
+    <v-container class="tech-project">
+      <router-view></router-view>
+    </v-container>
+  </v-app>
 </template>
 
 <style></style>

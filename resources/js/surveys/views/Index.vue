@@ -97,8 +97,29 @@ export default {
         <v-chip :color="getStatusColor(item.status)" small>{{ item.status }}</v-chip>
       </template>
       <template #item.actions="{ item }">
-        <v-btn text @click="$router.push(`/${item.id}/edit`)">Edit</v-btn>
-        <v-btn text color="error" @click="confirmDelete(item)">Delete</v-btn>
+        <div class="d-flex gap-2">
+          <v-btn 
+            text 
+            rounded 
+            outlined 
+            x-small 
+            color="secondary" 
+            @click="$router.push(`/${item.id}/edit`)"
+          >
+            Edit
+          </v-btn>
+
+          <v-btn 
+            text 
+            rounded 
+            outlined 
+            x-small 
+            color="error" 
+            @click="confirmDelete(item)"
+          >
+            Delete
+          </v-btn>
+        </div>
       </template>
     </v-data-table>
 

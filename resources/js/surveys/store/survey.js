@@ -73,6 +73,24 @@ export const useSurveyStore = defineStore('survey', {
             } finally {
                 this.loading = false
             }
+        },
+
+        async addQuestion(surveyId, questionData) {
+            this.loading = true
+            try {
+                const response = await axios.post(`/surveys/${surveyId}/questions`, questionData)
+                const survey = this.surveys.find(s => s.id == surveyId)
+                if (survey) {
+                    if (!survey.questions) survey.questions = []
+                    survey.questions.push(response.data)
+                }
+                return response.data
+            } catch (error) {
+                this.error = error.response?.data?.message || 'Failed to add question'
+                throw error
+            } finally {
+                this.loading = false
+            }
         }
     }
 }) 
