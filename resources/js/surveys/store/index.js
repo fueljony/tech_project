@@ -59,7 +59,6 @@ export const useSurveyStore = defineStore(
       )
 
       const editQuestion = async (surveyId, questionId, question) => {
-          console.log(typeof surveyId)
           await processRequest({processing: 'isProcessing'},
               async () => {
                   const {data} = await axios.put(`/survey/${surveyId}/update_question/${questionId}`, question);
@@ -120,12 +119,50 @@ export const useSurveyStore = defineStore(
           );
       }
 
+      const deleteSurvey = async (id) => {
+          if (!confirm('Are you sure you want to delete this survey?')) {
+              return;
+          }
 
+          await processRequest(
+              { processing: 'isProcessing' },
+              async () => {
+                  await axios.delete(`/surveys/${id}`);
+                  surveysMap.value.delete(id);
+                  triggerRef(surveysMap);
+                  toastr.success('Survey deleted successfully');
+              },
+              (error) => {
+                  console.error('Error deleting survey:', error);
+                  toastr.error('Failed to delete survey');
+              }
+          );
+      }
+
+      const editSurvey = async (survey) => {
+          await processRequest(
+              { processing: 'isProcessing' },
+              async () => {
+                  const { data } = await axios.patch(`/surveys/${survey.id}`, {
+                      name: survey.name
+                  });
+                  surveysMap.value.set(survey.id, data.survey);
+                  triggerRef(surveysMap);
+                  toastr.success('Survey updated successfully');
+              },
+              (error) => {
+                  console.error('Error updating survey:', error);
+                  toastr.error('Failed to update survey');
+              }
+          );
+      }
 
       return {
       addQuestion,
       deleteQuestion,
+      deleteSurvey,
       editQuestion,
+      editSurvey,
       getQuestionsBySurveyId,
       getSurveyWithQuestionsById,
       loadInitialData,

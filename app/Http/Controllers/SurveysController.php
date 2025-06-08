@@ -56,7 +56,18 @@ class SurveysController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // extra credit (update name)
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        $survey = Survey::findOrFail($id);
+        $survey->name = $request->name;
+        $survey->save();
+
+        return response()->json([
+            'message' => 'Survey updated successfully',
+            'survey' => $survey
+        ]);
     }
 
     /**
@@ -64,6 +75,17 @@ class SurveysController extends Controller
      */
     public function destroy(string $id)
     {
-        // extra credit (delete survey)
+        $survey = Survey::findOrFail($id);
+
+        foreach ($survey->questions as $question) {
+            $question->answer()->delete();
+        }
+
+        $survey->questions()->delete();
+        $survey->delete();
+
+        return response()->json([
+            'message' => 'Survey deleted successfully'
+        ], 200);
     }
 }
