@@ -1,4 +1,5 @@
 {
+    "name": "tech_project",
     "$schema": "https://json.schemastore.org/package.json",
     "private": true,
     "type": "module",

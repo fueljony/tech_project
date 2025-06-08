@@ -26,20 +26,12 @@ class SurveyQuestion extends Model
 
     public function getResponseAttribute()
     {
-        switch ($this->value_type) {
-            case "multiple_choice":
-                return $this->answer->string_value;
-            break;
-            case "date_picker":
-                return $this->answer->date_value;
-                break;
-            case "input_text":
-                return $this->answer->string_value;
-                break;
-            case "multiple_answer":
-                return $this->answer->json_value;
-                break;
-        }
-        return "";
+        return match($this->value_type) {
+            "multiple_choice" => $this->answer->string_value,
+            "date_picker" => $this->answer->date_value,
+            "input_text" => $this->answer->string_value,
+            "multiple_answer" => $this->answer->json_value,
+            default => ""
+        };
     }
 }
