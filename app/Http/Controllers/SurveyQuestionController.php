@@ -17,6 +17,7 @@ class SurveyQuestionController extends Controller
         return response()->json([
             'success' => true,
             'msg' => 'Question Added',
+            'questions' => $survey->questions()->get()
         ]);
     }
 
@@ -32,4 +33,31 @@ class SurveyQuestionController extends Controller
         ]);
     }
 
+    public function getSurveyQuestions(Survey $survey)
+    {
+        $questions = $survey->questions()->get();
+        return response()->json([
+            'success' => true,
+            'questions' => $questions,
+        ]);
+    }
+
+    public function deleteQuestion(Survey $survey, SurveyQuestion $surveyQuestion)
+    {
+        // Verify the question belongs to the survey
+        if ($surveyQuestion->survey_id !== $survey->id) {
+            return response()->json([
+                'success' => false,
+                'msg' => 'Question does not belong to this survey'
+            ], 403);
+        }
+
+        $surveyQuestion->delete();
+
+        return response()->json([
+            'success' => true,
+            'msg' => 'Question deleted',
+            'questions' => $survey->questions()->get()
+        ]);
+    }
 }

@@ -19,6 +19,9 @@ export default {
         { text: 'Options', value: 'options' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
+      questions: [],
+      questionsLoading: false,
+      questionsError: null,
     }
   },
   
@@ -33,10 +36,6 @@ export default {
 
     survey() {
       return this.surveyStore.getSurveyById(this.surveyId);
-    },
-
-    questions() {
-      return this.survey?.questions || [];
     },
   },
 
@@ -70,10 +69,22 @@ export default {
       this.deleteDialog = true
     },
 
-    deleteQuestion() {
-      // TODO: implement actual delete logic
-      this.deleteDialog = false
-      this.questionToDelete = null
+    async deleteQuestion() {
+      try {
+        const { success, questions } = await this.surveyStore.deleteQuestion(
+          this.surveyId,
+          this.questionToDelete.id
+        );
+
+        if (success) {
+          this.questions = questions;
+        }
+
+        this.deleteDialog = false;
+        this.questionToDelete = null;
+      } catch (e) {
+        this.questionsError = e.response?.data?.message || 'Failed to delete question';
+      }
     },
 
     async updateTitle() {
@@ -86,7 +97,7 @@ export default {
       
       if (this.survey && this.titleInput !== this.survey.name) {
         try {
-          await this.surveyStore.updateSurvey(this.survey.id, { ...this.survey, name: this.titleInput })
+          await this.surveyStore.updateSurvey(this.survey.id, { ...this.survey, name: this.titleInput });
         } catch (e) {
           // Optionally handle error
         }
@@ -94,19 +105,52 @@ export default {
     },
 
     openCreateModal() {
-      this.showCreateModal = true
+      this.showCreateModal = true;
     },
+
     closeCreateModal() {
-      this.showCreateModal = false
+      this.showCreateModal = false;
     },
+
+    async fetchQuestions() {
+      this.questionsLoading = true;
+      this.questionsError = null;
+
+      try {
+        const response = await this.surveyStore.fetchSurveyQuestions(this.survey.id);
+
+        this.questions = response.data.questions;
+      } catch (e) {
+        console.log(e);
+        this.questionsError = e.response?.data?.message || 'Failed to fetch questions';
+      } finally {
+        this.questionsLoading = false;
+      }
+    },
+
     async saveNewQuestion(question) {
       try {
-        await this.surveyStore.addQuestion(this.surveyId, question)
-        this.showCreateModal = false
+        const { success, questions } = await this.surveyStore.addQuestion(this.surveyId, question);
+
+        if (success) {
+          this.questions = questions;
+        }
+
+        this.showCreateModal = false;
       } catch (e) {
         // Optionally handle error
       }
     },
+  },
+
+  async mounted() {
+    try {
+      // asyncronous call to get survey data, makes sure that this.survey is in scope
+      await this.surveyStore.ensureSurveyData(this.surveyId);
+      await this.fetchQuestions();
+    } catch (e) {
+      this.questionsError = 'Failed to load survey data';
+    }
   },
 
   components: {
@@ -157,16 +201,36 @@ export default {
           :items-per-page="10"
           class="elevation-0"
           color="neutral300"
+          :loading="questionsLoading"
         >
           <template #item.options="{ item }">
             <span style="white-space: pre-line;">{{ getOptionsText(item.options, item.value_type) }}</span>
           </template>
     
           <template #item.actions="{ item }">
-            <v-btn text color="primary" disabled>Edit</v-btn>
-            <v-btn text color="error" @click="confirmDelete(item)">Delete</v-btn>
+            <div class="d-flex gap-4">
+              <v-btn 
+                rounded 
+                outlined 
+                x-small 
+                color="secondary" 
+                disabled
+              >
+                Edit
+              </v-btn>
+              <v-btn 
+                rounded 
+                outlined 
+                x-small 
+                color="error" 
+                @click="confirmDelete(item)"
+              >
+                Delete
+              </v-btn>
+            </div>
           </template>
         </v-data-table>
+        <div v-if="questionsError" class="error--text mt-2">{{ questionsError }}</div>
       </v-card-text>
     </v-card>
 

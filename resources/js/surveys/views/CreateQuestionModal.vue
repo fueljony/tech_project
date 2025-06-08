@@ -55,12 +55,15 @@ export default {
 
     save() {
       this.touched = true
+      
       if (!this.isValid) return
+
       const question = {
         question: this.questionText,
         value_type: this.questionType,
         options: this.showOptions ? this.optionsArray : null,
       }
+      
       this.$emit('save', question)
       this.reset()
     },
