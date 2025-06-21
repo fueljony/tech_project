@@ -42,12 +42,11 @@ export default defineConfig(({ mode }) => {
         server: {
             // Listen on all interfaces for Docker/WSL2 compatibility
             host: "0.0.0.0",
-            port: 3001,
+            port: 5173,
             strictPort: true,
             hmr: {
-                // Use VITE_HMR_HOST from .env if set, otherwise fallback to 'localhost'
-                host: process.env.VITE_HMR_HOST || "localhost",
-                port: 3001,
+                host: "127.0.0.1",
+                port: 5173,
             },
         },
         css: {
