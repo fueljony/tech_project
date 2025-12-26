@@ -40,12 +40,13 @@ export default defineConfig(({ mode }) => {
             extensions: [".ts", ".js", ".vue"],
         },
         server: {
-            host: "127.0.0.1",
-            port: 3001,
+            // Listen on all interfaces for Docker/WSL2 compatibility
+            host: "0.0.0.0",
+            port: 5173,
             strictPort: true,
             hmr: {
                 host: "127.0.0.1",
-                port: 3000,
+                port: 5173,
             },
         },
         css: {

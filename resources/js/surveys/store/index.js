@@ -8,6 +8,8 @@ export const useSurveyStore = defineStore(
     // state
     const surveys = ref();
     const processRequest = useProcessRequest();
+
+    // TODO jake - should move initial fetch logic here
     /**
      *
      */
